@@ -1,6 +1,7 @@
 // src/TodoList.tsx
 import React, { useState, useEffect } from "react";
-import Todo from "./Todo";
+import Todo from "../../Todo";
+import TodoItem from "../TodoItem/TodoItem";
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -51,31 +52,7 @@ const TodoList: React.FC = () => {
         }}
       >
         {filteredTodos.map((todo) => (
-          <li key={todo.id} style={{ listStyle: "none" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                border: "2px solid black",
-                width: "400px",
-                height: "150px",
-                padding: "8px",
-                borderRadius: "8px",
-              }}
-            >
-              <div>{todo.id}</div>
-              <p>
-                {todo.title} - {todo.completed ? "Completed" : "Incomplete"}
-              </p>
-              <button
-                onClick={() => {
-                  handleDelete(todo.id);
-                }}
-              >
-                delete
-              </button>
-            </div>
-          </li>
+          <TodoItem todo={todo} handleDelete={handleDelete}/>
         ))}
       </ul>
     </div>

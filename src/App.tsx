@@ -1,7 +1,7 @@
 // src/App.tsx
 import React from 'react';
 import './App.css';
-import TodoList from './TodoList';
+import TodoList from './components/TodoList/TodoList';
 
 const App: React.FC = () => {
   return (
