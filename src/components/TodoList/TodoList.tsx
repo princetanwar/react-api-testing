@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Todo from "../../Todo";
 import TodoItem from "../TodoItem/TodoItem";
+import axios from "axios";
 
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -10,11 +11,10 @@ const TodoList: React.FC = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           "https://jsonplaceholder.typicode.com/todos"
         );
-        const responseJson = await response.json();
-        setTodos(responseJson);
+        setTodos(response.data);
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
@@ -33,7 +33,7 @@ const TodoList: React.FC = () => {
       todos.filter((todo) =>
         todo.title.toLowerCase().includes(searchTerm.toLowerCase())
       ),
-    [todos,searchTerm]
+    [todos, searchTerm]
   );
 
   return (
@@ -52,7 +52,7 @@ const TodoList: React.FC = () => {
         }}
       >
         {filteredTodos.map((todo) => (
-          <TodoItem todo={todo} handleDelete={handleDelete}/>
+          <TodoItem key={todo.id} todo={todo} handleDelete={handleDelete} />
         ))}
       </ul>
     </div>
